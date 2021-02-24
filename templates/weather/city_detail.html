@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+  <div class="row m-5">
+    <h1 class='text-center'>Weather Channel</h1>
+  </div>
+</div>
+
+
+<div class='container'>
+  <div class="row">
+    <div class='col'>
+      <div class="card">
+        <h1 class="card-header text-center">
+              {{weather_data.city}}
+        </h1>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-3 p-5" align='center'>
+        <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather_picture">
+            </div>
+            <div class="col-9" align='center'>
+                <h2 class="card-title text-center">Actual weather</h2>
+
+                    <ul class="list-group list-group-flush">
+                  <li class="list-group-item fs-3">{{weather_data.temp}}° C</li>
+                  <li class="list-group-item fs-3">Feels like : {{weather_data.feels_like}}° C</li>
+                  <li class="list-group-item fs-3">Wind speed : {{weather_data.wind}} km/h</li>
+                  <li class="list-group-item fs-3">{{weather_data.humidity}} % humidity</li>
+                </ul>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-center">
+          <a href="{% url 'home' %}" class="btn btn-success">Back Home</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}

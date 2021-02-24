@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+<div class="container">
+  <div class="row m-5">
+    <h1 class='text-center'>Weather Channel</h1>
+  </div>
+</div>
+
+<div class="container">
+  <form method='POST'>
+    <div class="row m-4">
+      {%csrf_token%} {{ form.name}}
+      <input type='submit' class="btn btn-primary btn-lg col-4 mx-auto m-3" value='Add a city'>
+    </div>
+    {% if message %}
+    <div class='alert alert-{{message_class}}'>{{message}}</div>
+    {% endif %}
+  </form>
+</div>
+
+
+{% for city_weather in weather_data %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-5 m-2">
+      <div class="card">
+        <h4 class="card-header text-center">
+          {{city_weather.city}}, {{city_weather.country}}
+        </h4>
+        <div class="row">
+          <div class="col-md-4" align='center'>
+            <img src="http://openweathermap.org/img/wn/{{city_weather.icon}}@2x.png" alt="rainy_day">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title text-center">Actual weather</h5>
+              <div class="card"">
+                <ul class="list-group list-group-flush text-center">
+                  <li class="list-group-item fs-5">{{city_weather.temp}}° C</li>
+                  <li class="list-group-item fs-5">{{city_weather.humidity}} % humidity</li>
+                  <li class="list-group-item fs-5">{{city_weather.description}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-center">
+          <a href="{% url 'delete_city' city_weather.pk %}" class="btn btn-danger m-1">Delete</a>
+          <a href="{% url 'city_detail' city_weather.city %}" class="btn btn-primary">See more</a>
+        </div>
+
+      </div>
+    </div>
+
+    {% endfor %}
+
+  </div>
+  {% endblock content %}
